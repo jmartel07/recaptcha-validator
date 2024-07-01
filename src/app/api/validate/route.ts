@@ -15,7 +15,15 @@ export async function POST(request: NextRequest) {
   if (!gRecaptchaToken) {
     return new NextResponse(
       JSON.stringify({ name: 'Please provide a valid token' }),
-      { status: 400 },
+      {
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, ngrok-skip-browser-warning',
+        },
+      },
     );
   }
 
@@ -37,17 +45,37 @@ export async function POST(request: NextRequest) {
       // Submit form to hubspot
       return new NextResponse(JSON.stringify(reCaptchaResponseObject), {
         status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, ngrok-skip-browser-warning',
+        },
       });
     } else {
       return new NextResponse(
         JSON.stringify({ name: 'Error with this token' }),
-        { status: 400 },
+        {
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers':
+              'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, ngrok-skip-browser-warning',
+          },
+        },
       );
     }
   } catch (e) {
     console.log('recaptcha error:', e);
     return new NextResponse(JSON.stringify({ name: 'Error!' }), {
       status: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers':
+          'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, ngrok-skip-browser-warning',
+      },
     });
   }
 }
